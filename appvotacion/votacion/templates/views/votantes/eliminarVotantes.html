@@ -1,0 +1,32 @@
+{% load static %}
+{% block content %}
+<main>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Votante</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        ¿Esta Seguro que desea eliminar al votante?     
+                    </div>
+                    <form method="POST" class="col-md-12" align="left"> 
+                        {% csrf_token %}
+                        <div class=" row text-center" align="center">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                <button type="submit" value="Buscar"class="btn btn-xs btn-danger text-center"><i class="fa fa-check-circle"></i>Eliminar</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% load static %}
+{% include 'base/base.html' %}
+{% block content %}
+<main>
+    <div class="container col-md-11">
+        <div class="p-2 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold">Candidatos</h1>
+            <p class="col-md-8 fs-4">Gestione los Candidatos Relacionados a la Votación: {{votacion}} </p>
+            </div>
+        </div>
+        <div align="right">
+            <a href="{% url 'listarvotaciones' %}" class="btn btn-dark btn-xs" title="Regresar a Votaciones"> Ir Atras <i class="bi bi-arrow-90deg-left"></i></a>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table id="cambios" class="table table-striped  table-bordered text-center" > 
+                <thead class=" text-center content-center table-dark">
+                    {% block columns %}
+                    {% endblock %}
+                    {% load humanize %}
+                    <tr class="text-center">
+                        <th class="text-center">Identificación</th>
+                        <th class="text-center">Nombres</th>
+                        <th class="text-center">Apellidos</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Tarjeton</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% block rows %}
+                    {% endblock %}
+                    {% for data in data %}
+                    <tr>
+                        <td>{{data.votante.ide}}</td>
+                        <td>{{data.votante.nombre}}</td>
+                        <td>{{data.votante.apellido}}</td>
+                        <td>{{data.descripcion}}</td>
+                        <td>{{data.tarjeton}}</td>
+                        <td>
+                            <button onclick="abrir_modal_edicion('{% url 'editarcandidato' data.ide %}')" class="btn btn-warning btn-xs" title="Editar Candidato"><i class="bi bi-pencil"></i></button>
+                            <button onclick="abrir_modal_eliminacion('{% url 'eliminarcandidato' data.ide %}')" class="btn btn-danger btn-xs" title="Eliminar Candidato"><i class="bi bi-x"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>	
+            </table >
+        </div>
+    </div>
+    <div class="modal fade" id="editar" role="dialog">    
+    </div>
+    <div class="modal fade" id="eliminar" role="dialog">       
+    </div>
+</main>
+<script src="{% static 'DataTables/Aplicar.js' %}"></script>
+{% if messages%}
+  {{ messages.success}}
+    {% for m in messages %}
+		<script>
+      mensaje("{{m}}");
+    </script>
+	{% endfor %}
+{% endif %}
+<script type="text/javascript">
+    function abrir_modal_edicion(url) {
+        $('#editar').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+    function abrir_modal_eliminacion(url) {
+        $('#eliminar').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock %}
+{% include 'base/footer.html' %}

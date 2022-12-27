@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Votaciones APP</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'iconos/bootstrap-icons.css' %}">
+  </head>
+  <body class="text-center"><main class="form-signin m-auto col-md-10">
+  <form method="POST" class="col-md-10 text-center" style="width:100%" > 
+    {% csrf_token %}
+    <i class="bi bi-person-plus-fill" style="font-size: 5em"></i>
+    <h1 class="h3 mb-3 fw-normal">Por Favor Registrate</h1>
+    <table class="col-md-10 text-center table-hover table-striped" style="width:100% margin:30px pading:30px" align="center">
+        {{form.as_table}}
+    </table>
+    <br>
+    <button class="btn btn-lg btn-primary" type="submit">Registrarme</button>
+    <a href="{% url 'login' %}" class="btn btn-lg btn-dark">Ir al Login</a>
+    <p class="mt-5 mb-3 text-muted">&copy; David Sanabria Otero</p>
+  </form>
+</main> 
+
+  </body>
+</html>

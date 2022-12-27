@@ -1,0 +1,47 @@
+{% load static %}
+{% include 'base/base.html' %}
+{% block content %}
+<main>
+    <div class="container col-md-11">
+        <div class="p-2 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold">Votaciones</h1>
+            <p class="col-md-8 fs-4">Hola <strong>{{votante.nombre}}</strong>, Bienvenido Selecciona el Candidato y Realiza la Votación</p>
+            </div>
+        </div>
+        <br>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">    
+            {% for data in data  %}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-dark">
+                        <div class="card-header py-3 text-white bg-dark border-dark">
+                        <h4 class="my-0 fw-normal">{{data.votante.nombre}} {{data.votante.apellido}}</h4>
+                        </div>
+                        <div class="card-body">
+                        <img src={{data.imagen.url}} height="150" width="150" alt="producto">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li><p class='card-text'><strong>Tarjeton: {{data.tarjeton}}</strong></p></li>
+                            <li><p class='card-text'><strong>{{data.descripcion}}</strong></p></li>
+                        </ul>
+                        <div class="text-center" align="center">
+                            <a href="{% url 'votar' votacion.ide votante.ide data.ide %}" class="btn btn-dark btn-lg text-center"><i class="fa fa-check-circle"></i>Votar</a>
+                            <br>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+<script src="{% static 'DataTables/Aplicar.js' %}"></script>
+{% if messages%}
+  {{ messages.success}}
+    {% for m in messages %}
+		<script>
+      mensaje("{{m}}");
+    </script>
+	{% endfor %}
+{% endif %}
+{% endblock %}
+{% include 'base/footer.html' %}

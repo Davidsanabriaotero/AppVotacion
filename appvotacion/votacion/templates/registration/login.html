@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Votaciones APP</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'iconos/bootstrap-icons.css' %}">
+<meta name="theme-color" content="#712cf9">    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'bootstrap/css/signin.css' %}" rel="stylesheet">
+  </head>
+<body class="text-center">    
+<main class="form-signin w-auto m-auto">
+  <form method="POST"> 
+    {% csrf_token %}
+    <i class="bi bi-box-arrow-in-right" style="font-size: 5em"></i>
+    <h1 class="h3 mb-3 fw-normal">Por Favor Inicia Sesión</h1>
+    <table>
+        {{form.as_table}}
+    </table>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+    <p class="mt-5 mb-3 text-muted">&copy; David Sanabria Otero</p>
+    <ul>Si no tienes un usuario <a href="{% url 'registro' %}"><strong>Registrate Aquí</strong></a></ul>
+  </form>
+</main> 
+  </body>
+</html>

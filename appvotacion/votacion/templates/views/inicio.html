@@ -1,0 +1,47 @@
+{% load static %}
+{% include 'base/base.html' %}
+{% block content %}
+<main>
+<div class="container col-md-11">
+  <div class="p-4 mb-3 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Sistema de Votaciones Online</h1>
+      <p class="col-md-8 fs-4">Pensado para facilitar las elecciones en Colegios, Universidades o en el ambiente laboral, Simple, Personalizable y Seguro.</p>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 mb-3" align="center">
+    <div class="col-md-3"></div>
+    <div class="card mb-3 border-dark col-md-3" style="margin: 1em">
+      <i class="bi bi-toggles" align="center" style="font-size: 10em"></i>
+      <div class="card-body rounded-2" align="center">
+        <h5 class="card-title">Administrador</h5>
+        <p class="card-text">Cree, personalice y gestione sus votaciones</p>
+      </div>
+      <div class="card-footer bg-transparent border-dark">
+        <a href="{% url 'listarvotaciones' %}" class="btn btn-dark">Visitar Pagina</a>
+      </div>
+    </div>
+    <div class="card mb-3 border-dark col-md-3" style="margin: 1em" >
+      <i class="bi bi-people-fill" align="center" style="font-size: 10em"></i>
+      <div class="card-body rounded-2" align="center">
+        <h5 class="card-title">Votantes</h5>
+        <p class="card-text">Ingrese aquí para realizar la votación, Recuerde que se validará que se encuentre registrado como votante.</p>
+      </div>
+      <div class="card-footer bg-transparent border-dark">
+        <a href="{% url 'validarvotante' %}" class="btn btn-dark">Visitar Pagina</a>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<script src="{% static 'DataTables/Aplicar.js' %}"></script>
+  {% if messages%}
+    {{ messages.success}}
+      {% for m in messages %}
+      <script>
+        mensaje("{{m}}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+{% include 'base/footer.html' %}

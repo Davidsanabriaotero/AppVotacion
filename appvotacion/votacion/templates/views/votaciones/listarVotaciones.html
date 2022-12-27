@@ -1,0 +1,120 @@
+{% load static %}
+{% include 'base/base.html' %}
+{% block content %}
+<main>
+    <div class="container col-md-11">
+        <div class="p-2 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-2">
+            <h1 class="display-5 fw-bold">Votaciones</h1>
+            <p class="col-md-8 fs-4">Genere, Personalice y Gestione las votaciones</p>
+            </div>
+        </div>
+        <div align="right">
+            <button onclick="abrir_modal_creacion('{% url 'crearvotacion' %}')" class="btn btn-dark btn-xs" title="Crear Votación">Crear Votación <i class="bi bi-journal-plus"></i></button>
+        </div>
+        <br>
+        <div class="table">
+            <table id="cambios" class="table table-striped  table-bordered text-center" > 
+                <thead class=" text-center content-center table-dark">
+                    {% block columns %}
+                    {% endblock %}
+                    {% load humanize %}
+                    <tr class="text-center">
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Apertura</th>
+                        <th class="text-center">Cierre</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% block rows %}
+                    {% endblock %}
+                    {% for data in data %}
+                    <tr>
+                        <td>{{data.nombre}}</td>
+                        <td>{{data.descripcion}}</td>
+                        <td>{{data.fecha_inicio}}</td>
+                        <td>{{data.fecha_fin}}</td>
+                        {% if data.estado == True %}
+                        <td>Activo</td>
+                        {% else %}
+                        <td>Inactivo</td>
+                        {% endif %}
+                        <td>
+                            <div class="dropend" align="center">
+                                <button class="btn btn-xs btn-success  dropdown-toggle" type="button" id="votantes" data-bs-toggle="dropdown" aria-expanded="false" title="Votantes"><i class="bi bi-people-fill"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="votantes">
+                                  <li><h6 class="dropdown-header text-center" align="center"></h6><strong>Votantes</strong></li>
+                                  <li><hr class="dropdown-divider"></li>
+                                  <li><a onclick="abrir_modal_creacion('{% url 'crearvotante' data.ide %}')" class="dropdown-item btn text-center" title="Crear Votantes">Crear Votante</a></li>
+                                  <li><a href="{% url 'listarvotantes' data.ide %}" class="dropdown-item btn text-center" title="Ver Votantes">Ver Votantes</a></li>
+                                </ul>
+
+                                <button class="btn btn-xs btn-primary  dropdown-toggle" type="button" id="candidatos" data-bs-toggle="dropdown" aria-expanded="false" title="candidatos"><i class="bi bi-person-check-fill"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="candidatos">
+                                  <li><h6 class="dropdown-header text-center" align="center"></h6><strong>Candidatos</strong></li>
+                                  <li><hr class="dropdown-divider"></li>
+                                  <li><a onclick="abrir_modal_creacion('{% url 'crearcandidato' data.ide %}')" class="dropdown-item btn text-center" title="Crear Candidato">Crear Candidato</a></li>
+                                  <li><a href="{% url 'listarcandidatos' data.ide %}" class="dropdown-item btn text-center" title="Ver Candidatos">Ver Candidato</a></li>
+                                </ul>
+
+                                <button class="btn btn-xs btn-danger  dropdown-toggle" type="button" id="opciones" data-bs-toggle="dropdown" aria-expanded="false" title="Opciones"><i class="bi bi-card-checklist"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="opciones">
+                                    <li><h6 class="dropdown-header text-center" align="center"></h6><strong>Opciones</strong></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a onclick="abrir_modal_edicion('{% url 'editarvotacion' data.ide%}')" class="dropdown-item btn text-center" title="Editar Votación">Editar</a></li>
+                                    <li><a onclick="abrir_modal_eliminacion('{% url 'eliminarvotacion' data.ide%}')" class="dropdown-item btn text-center" title="Eliminar Votación">Eliminar</a></li>
+                                    <li><a href="{% url 'vistaresultados' data.ide%}" class="dropdown-item btn text-center" title="Resultados Votación">Resultados</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>	
+            </table >
+        </div>
+    </div>
+    <div class="modal fade" id="crear" role="dialog">			
+    </div>
+    <div class="modal fade" id="editar" role="dialog">    
+    </div>
+    <div class="modal fade" id="eliminar" role="dialog">       
+    </div>
+    <div class="modal fade" id="ver" role="dialog">       
+    </div>
+</main>
+<script src="{% static 'DataTables/Aplicar.js' %}"></script>
+{% if messages%}
+  {{ messages.success}}
+    {% for m in messages %}
+		<script>
+      mensaje("{{m}}");
+    </script>
+	{% endfor %}
+{% endif %}
+<script type="text/javascript">
+    function abrir_modal_creacion(url) {
+        $('#crear').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+    function abrir_modal_edicion(url) {
+        $('#editar').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+    function abrir_modal_eliminacion(url) {
+        $('#eliminar').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+    function abrir_modal_ver(url) {
+        $('#ver').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock %}
+{% include 'base/footer.html' %}

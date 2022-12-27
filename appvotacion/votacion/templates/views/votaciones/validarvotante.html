@@ -1,0 +1,46 @@
+{% load static %}
+{% include 'base/base.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Votaciones APP</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'iconos/bootstrap-icons.css' %}"> 
+  </head>
+<body class="text-center">    
+    <main class="form-signin m-auto col-md-6" align="center">
+        <br>
+        <br>
+        <br>
+        <br>
+        <form method="POST" class="col-md-10 text-center" style="width:100%" align="center"> 
+          {% csrf_token %}
+          <i class="bi bi-shield-check" style="font-size: 5em"></i>
+          <h1 class="h3 mb-3 fw-normal">Por Favor Valida tu Identidad</h1>
+          <table class="col-md-8 text-center table-hover table-striped" style="width:100% margin:30px pading:30px" align="center">
+              {{form.as_table}}
+          </table>
+          <br>
+          <button class="btn btn-lg btn-primary" type="submit">Validar</button>
+          <a href="{% url 'inicio' %}" class="btn btn-lg btn-dark">Ir al Inicio</a>
+          <p class="mt-5 mb-3 text-muted">&copy; David Sanabria Otero</p>
+        </form>
+      </main> 
+  </body>
+  <script src="{% static 'DataTables/datatables.js' %}"></script>
+  <script src="{% static 'DataTables/Aplicar.js' %}"></script>
+  {% if messages%}
+    {{ messages.success}}
+      {% for m in messages %}
+      <script>
+        mensaje("{{m}}");
+      </script>
+    {% endfor %}
+  {% endif %}
+</html>
